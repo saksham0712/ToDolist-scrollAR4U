@@ -142,7 +142,7 @@
         </div>
         <div id="tasks"></div>
     </div>
-    <div id="result"></div>
+    <!-- <div id="result"></div> -->
     <script>
         document.querySelector('#push').onclick = function () {
             if (document.querySelector('#newtask input').value.length == 0) {
@@ -195,7 +195,7 @@
             d.setTime(d.getTime() + (time*24*60*60*1000))
             let expires = "expires=" + d.toUTCString()
 
-            document.cookie = `${key}=${value};${expires};`
+            document.cookie = `${key}=${value};${expires};path='/'`
             
             window.location.reload()
                   
@@ -204,14 +204,14 @@
         function getCookies() {
             let cookies = document.cookie.split(';')
 
-            
+
             let res;
 
-            for (let i = ; i < cookies.length; i++) {
-                res+= i+ '-' + cookies[i-1] + <br>
+            for (let i = 1; i < cookies.length; i++) {
+                res+= i+ '-' + cookies[i-1] + "<br>"
             }
 
-            document.getElementById('result').innerHTML = res
+            document.getElementById('taskname').innerHTML = res
         }
     </script>
 </body>
