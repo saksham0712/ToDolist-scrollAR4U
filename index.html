@@ -44,10 +44,24 @@
 
         #newtask {
             position: relative;
+            display: flex;
             padding: 30px 20px;
         }
-
-        #newtask input {
+       
+        #newtask> #key {
+            width: 19%;
+            height: 45px;
+            padding: 12px;
+            color: #111111;
+            font-weight: 500;
+            position: relative;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            border: 2px solid #d1d3d4;
+            
+        }
+        #newtask> #value {
             width: 75%;
             height: 45px;
             padding: 12px;
@@ -58,6 +72,7 @@
             font-family: 'Poppins', sans-serif;
             font-size: 15px;
             border: 2px solid #d1d3d4;
+            
         }
 
         #newtask input:focus {
@@ -141,36 +156,30 @@
             <button id="push">Add</button>
         </div>
         <div id="tasks"></div>
+        <div id="result"></div>
     </div>
-    <!-- <div id="result"></div> -->
     <script>
-        document.querySelector('#push').onclick = function () {
-            if (document.querySelector('#newtask input').value.length == 0) {
-                alert("Kindly Enter Task Name!!!!")
-            }
+        // document.querySelector('#push').onclick = function () {
+        //     if (document.querySelector('#newtask input').value.length == 0) {
+        //         alert("Kindly Enter Task Name!!!!")
+        //     }
 
-            else {
-                document.querySelector('#tasks').innerHTML += `
-            <div class="task"><input type="checkbox" id="checkbox"></input>
-                <span id="taskname">
-                    ${document.querySelector('#newtask input').value}
-                </span>
-                <button class="delete">
-                  <i class=""><img src="bin.png" style="width: 24px;"></i>
+        //     else {
+        //         document.querySelector('#tasks').innerHTML += `
+        //     <div class="task"><input type="checkbox" id="checkbox"></input>
+        //         <span id="taskname">
+        //             ${document.querySelector('#newtask input').value}
+        //         </span>
+        //         <button class="delete">
+        //           <i class=""><img src="bin.png" style="width: 24px;"></i>
                     
-                </button>
-            </div>
-        `;
+        //         </button>
+        //     </div>
+        // `;
 
-                var current_tasks = document.querySelectorAll(".delete");
-                for (var i = 0; i < current_tasks.length; i++) {
-                    current_tasks[i].onclick = function () {
-                        this.parentNode.remove();
-                        this.parentNode.remove();
-                    }
-                }
-            }
-        }
+                
+        //     }
+        // }
 
 
         document.getElementById('push').addEventListener('click', (e)=>{
@@ -205,13 +214,34 @@
             let cookies = document.cookie.split(';')
 
 
-            let res;
-
-            for (let i = 1; i < cookies.length; i++) {
-                res+= i+ '-' + cookies[i-1] + "<br>"
+            let res = [] ;
+   
+            for (let i = 0; i < cookies.length; i++) {
+                console.log(res)
+                res.push(cookies)  
+                console.log(res)
             }
-
-            document.getElementById('taskname').innerHTML = res
+            
+            for(let i = 0; i < res.length; i++) {
+            document.getElementById('result').innerHTML += `
+             <div class="task"><input type="checkbox" id="checkbox"></input>
+                 <span id="taskname">
+                     ${res[i]}
+                 </span>
+                 <button class="delete">
+                   <i class=""><img src="bin.png" style="width: 24px;"></i>
+                    
+                 </button>
+             </div>
+         `};
+         var current_tasks = document.querySelectorAll(".delete");
+                for (var i = 0; i < current_tasks.length; i++) {
+                    current_tasks[i].onclick = function () {
+                        this.parentNode.remove();
+                        document.cookie = "key=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                        this.parentNode.remove();
+                    }
+                }
         }
     </script>
 </body>
